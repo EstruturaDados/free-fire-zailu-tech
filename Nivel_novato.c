@@ -24,6 +24,7 @@ void inicializarMochila(Mochila *mochila); // Inicializa a mochila
 void inserirItem(Mochila *mochila, const char* nome, const char* tipo, int quantidade); // Insere um item na mochila
 void removerItem(Mochila *mochila, const char* nome); // Remove um item da mochila
 void listarItem(const Mochila *mochila); // Lista os itens da mochila
+void buscarItem(const Mochila *mochila, const char* nome); // Busca um item na mochila
 
 // Função principal
 
@@ -48,6 +49,7 @@ int main(){
         printf("\n1. Adicionar Item (Loot)\n");
         printf("2. Remover Item\n");
         printf("3. Listar itens na mochila\n");
+        printf("4. Buscar item\n");
         printf("0. Sair\n");
     
     // Lê a opção do usuário como string para evitar problemas com entradas inválidas
@@ -123,6 +125,15 @@ int main(){
 
             printf("Pressione Enter para continuar...");
             getchar(); // Espera o usuário pressionar Enter
+            
+            case 4:
+            printf("\n-- Buscar Item --\n");
+            
+            printf("Nome do Item: ");
+            fgets(nome, MAX_STR_LEN, stdin);
+            nome[strcspn(nome, "\n")] = 0;
+
+            buscarItem(&mochila, nome);
 
             case 0:
             printf("Saindo do programa...\n");
@@ -214,4 +225,38 @@ void listarItem(const Mochila *mochila){
     printf("-----------------------------------------------------\n");
     printf("\nPressione Enter para continuar...");
     getchar(); // pausa até o usuário apertar Enter
+}
+
+// Função para buscar um item na mochila
+void buscarItem(const Mochila *mochila, const char* nome){
+
+    // Verifica se a mochila está vazia
+    if(mochila->qntd ==0 ){
+        printf("\nA mochila esta vazia. Nenhum item para buscar.\n");
+        printf("\nPressione Enter para continuar...");
+        getchar(); // pausa até o usuário apertar Enter
+    }
+
+    // Procura o item pelo nome
+    for(int i = 0; i < mochila->qntd; i++){
+        if(strcmp(mochila->itens[i].nome, nome) == 0) {
+
+            // Item encontrado, exibe os detalhes
+            printf("\nItem encontrado\n");
+            printf("Nome: %s\n", mochila->itens[i].nome);
+            printf("Tipo: %s\n", mochila->itens[i].tipo);
+            printf("Quantidade: %d\n", mochila->itens[i].quantidade);
+
+            printf("\nPressione Enter para continuar..."); // pausa até o usuário apertar Enter
+            getchar();
+
+            return;
+        }
+    }
+
+    // Se chegar aqui, o item não foi encontrado
+    printf("\nItem '%s' nao encontrado na mochila\n", nome);
+    printf("\nPressione Enter para continuar..."); // pausa até o usuário apertar Enter
+    getchar();
+
 }
