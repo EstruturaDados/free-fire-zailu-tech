@@ -1,5 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdio.h> // Biblioteca padrão de entrada e saída
+#include <stdlib.h> // // Biblioteca padrão para alocação de memória
 #include <string.h> // Biblioteca para manipulação de strings
 #include <ctype.h> // Biblioteca para isdigit()
 
